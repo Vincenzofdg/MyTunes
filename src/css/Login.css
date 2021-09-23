@@ -1,0 +1,30 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 80vh;
+}
+
+.login-container {
+  background-color: blueviolet;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50vw;
+  height: 40vh;
+  padding: 30px 50px;
+}
+
+.title {
+  background-color: brown;
+  text-align: center;
+  margin-bottom: 35px;
+  font-weight: bold;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: blanchedalmond;
+}
