@@ -1,0 +1,26 @@
+header {
+  background-color: rgb(248, 244, 244);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h2 {
+  margin-left: 5%;
+}
+
+.container-right {
+  background-color: blue;
+  width: 20vw;
+}
+
+.indice-container {
+  background-color: aqua;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.indice {
+  text-decoration: none;
+}

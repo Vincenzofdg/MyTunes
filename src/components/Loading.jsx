@@ -8,6 +8,7 @@ class Loading extends Component {
     return (
       <div>
         {type === 'h1' && <h1>{ msg }</h1>}
+        {type === 'h2' && <h2>{ msg }</h2>}
         {type === 'p' && <p>{ msg }</p>}
         {type === 'span' && <span>{ msg }</span>}
       </div>

@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 
+// Components:
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
 import AlbumList from '../components/AlbumList';
+
+// CSS:
+import '../css/Search.css'
 
 class Search extends Component {
   constructor() {

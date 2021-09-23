@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getUser } from '../services/userAPI';
-import Loading from './Loading';
+
+// Components:
+import { getUser } from '../services/userData';
+import '../css/Header.css'
 
 class Header extends Component {
   constructor() {
@@ -17,9 +19,9 @@ class Header extends Component {
   }
 
   userFunc = async () => {
-    const user = await getUser();
+    const { name } = await getUser();
     this.setState({
-      name: user.name,
+      name: name,
       loading: false,
     });
   }
@@ -27,7 +29,7 @@ class Header extends Component {
   linkGenerator(name, id) {
     return (
       <li>
-        <Link to={ `/${id}` } data-testid={ `link-to-${id}` }>
+        <Link to={ `/${id}` } className="indice">
           { name }
         </Link>
       </li>
@@ -36,18 +38,17 @@ class Header extends Component {
 
   render() {
     const { name, loading } = this.state;
-    const loadType = 'h1';
     return (
-      <header data-testid="header-component">
-        {/* Assim que o nome é renderizado o Loading sai da Pagina */}
-        { loading && <Loading type={ loadType } /> }
-        <h1 data-testid="header-user-name">{ name }</h1>
-        {/* Requisito 04 */}
-        <ul>
-          { this.linkGenerator('Pesquisa', 'search') }
-          { this.linkGenerator('Favoritos', 'favorites') }
-          { this.linkGenerator('Perfil', 'profile') }
-        </ul>
+      <header hidden={ loading }>
+        <h2><kbd>_MyTunes_</kbd></h2>
+        <div className="container-right">
+          <p>{ `Welcome ${name}.` }</p>
+          <ul className="indice-container">
+            { this.linkGenerator('Pesquisa', 'search') }
+            { this.linkGenerator('Favoritos', 'favorites') }
+            { this.linkGenerator('Perfil', 'profile') }
+          </ul>
+        </div>
       </header>
     );
   }

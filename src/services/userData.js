@@ -1,21 +1,15 @@
 const USER_KEY = 'user';
 const TIMEOUT = 1500;
+const TIMENOW = 0;
 const SUCCESS_STATUS = 'OK';
 
 const readUser = () => JSON.parse(localStorage.getItem(USER_KEY));
 const saveUser = (user) => localStorage.setItem(USER_KEY, JSON.stringify(user));
 
-// --------------------------------------------------------------------
-// A função simulateRequest simula uma requisição para uma API externa
-// Esse tipo de função que "chama outra função" é chamada de
-// "currying function" https://javascript.info/currying-partials
-// não se preocupe, estudaremos isso mais futuramente
-// --------------------------------------------------------------------
-
-const simulateRequest = (response) => (callback) => {
+const simulateRequest = (response, timeout) => (callback) => {
   setTimeout(() => {
     callback(response);
-  }, TIMEOUT);
+  }, timeout);
 };
 
 export const getUser = () => new Promise((resolve) => {
@@ -23,7 +17,7 @@ export const getUser = () => new Promise((resolve) => {
   if (user === null) {
     user = {};
   }
-  simulateRequest(user)(resolve);
+  simulateRequest(user, TIMENOW)(resolve);
 });
 
 export const createUser = (user) => new Promise((resolve) => {
@@ -34,10 +28,10 @@ export const createUser = (user) => new Promise((resolve) => {
     description: '',
   };
   saveUser({ ...emptyUser, ...user });
-  simulateRequest(SUCCESS_STATUS)(resolve);
+  simulateRequest(SUCCESS_STATUS, TIMEOUT)(resolve);
 });
 
 export const updateUser = (updatedUser) => new Promise((resolve) => {
   saveUser({ ...updatedUser });
-  simulateRequest(SUCCESS_STATUS)(resolve);
+  simulateRequest(SUCCESS_STATUS, TIMEOUT)(resolve);
 });
