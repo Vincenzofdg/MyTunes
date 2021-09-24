@@ -10,24 +10,28 @@ class MusicCard extends Component {
 
   render() {
     const { music } = this.props;
+    const name = '15%';
     return (
-      <div>
-        <p>{ music.trackName }</p>
-        <audio data-testid="audio-component" src={ music.previewUrl } controls>
+      <div className="mx-4 d-flex align-items-center bd-highlight">
+        <div style={{ width: name }} className="text-center fs-6 p-2 bd-highlight bg-dark bg-opacity-50">{music.trackName}</div>
+        <audio className="p-2 flex-grow-1 bd-highlight" src={music.previewUrl} controls>
           <track kind="captions" />
         </audio>
-        <label
-          htmlFor={ music.trackId }
-          data-testid={ `checkbox-music-${music.trackId}` }
-        >
-          Favorite
+        <div className="form-check form-switch">
+          <label
+            className="form-check-label"
+            htmlFor={`flexSwitchCheckChecked ${music.trackNumber}`}
+            >
+            Favorite
+          </label>
           <input
-            type="checkbox"
-            id={ music.trackId }
             name={ music.trackName }
             onChange={ this.handleChange }
+            className="form-check-input"
+            type="checkbox"
+            id={`flexSwitchCheckChecked ${music.trackNumber}`}
           />
-        </label>
+        </div>
       </div>
     );
   }

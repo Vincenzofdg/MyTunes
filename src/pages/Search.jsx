@@ -3,10 +3,10 @@ import Header from '../components/Header';
 
 // Components:
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
-import Loading from '../components/Loading';
 import AlbumList from '../components/AlbumList';
 
 // CSS:
+import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import '../css/Search.css'
 
 class Search extends Component {
@@ -34,25 +34,29 @@ class Search extends Component {
     event.preventDefault();
     const { search } = this.state;
     this.setState({
-      visible: true,
+
       loading: true,
       searched: search,
     });
-    const result = await searchAlbumsAPI(search);
+    const result = await searchAlbumsAPI(search)
     this.setState({
       search: '',
+      visible: true,
       loading: false,
       albums: result,
     });
   }
 
   albumsGeneration(albums, searched) {
+    const { loading } = this.state;
     return (
       <div>
-        <h2>{ `Resultado de álbuns de: ${searched}` }</h2>
-        {albums.length > 0
-          ? albums.map((a) => <AlbumList key={ a.collectionId } album={ a } />)
-          : <p>Nenhum álbum foi encontrado</p> }
+        <h2 className="text-center">{ `${albums.length} albums from ${searched}` }</h2>
+        <div hidden={ loading } className="album-list">
+          {albums.length > 0
+            ? albums.map((a) => <AlbumList key={ a.collectionId } album={ a } />)
+            : <p>Nenhum álbum foi encontrado</p> }
+        </div>
       </div>
     );
   }
@@ -64,32 +68,35 @@ class Search extends Component {
       albums,
       visible,
       loading } = this.state;
-    const CHAR = 2;
-    const loadType = 'p';
+    const CHAR = 3;
     return (
-      <div data-testid="page-search">
+      <div>
         <Header />
-        <form>
-          <input
-            data-testid="search-artist-input"
-            type="text"
-            name="search"
-            value={ search }
-            onChange={ this.handleChange }
-          />
-          <button
-            type="submit"
-            data-testid="search-artist-button"
-            disabled={ search.length < CHAR }
-            onClick={ this.handleClick }
-          >
-            Pesquisar
-          </button>
+        <form className="container-search">
+          <div>
+            <InputGroup>
+              <Input
+                type="search"
+                name="search"
+                value={ search }
+                placeholder="band"
+                onChange={ this.handleChange }
+              />
+              <InputGroupAddon addonType="append">
+                <Button
+                  color="danger"
+                  type="submit"
+                  disabled={ search.length < CHAR }
+                  onClick={ this.handleClick }
+                >
+                  search
+                </Button>
+              </InputGroupAddon>
+            </InputGroup>
+          </div>
         </form>
-
         { visible && this.albumsGeneration(albums, searched) }
-
-        { loading && <Loading type={ loadType } /> }
+        { loading && <p className="c-loader fixed" /> }
       </div>
     );
   }

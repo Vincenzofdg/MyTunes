@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
-import Loading from '../components/Loading';
+
+// CSS:
+import { Spinner } from 'reactstrap';
 
 import {
   addSong,
   // getFavoriteSongs,
-  removeSong } from '../services/favoriteSongsAPI';
+  removeSong
+} from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   constructor() {
@@ -17,18 +20,14 @@ class Album extends Component {
     this.state = {
       album: {},
       tracks: [],
-      // favorite: [],
-      loading: false,
     };
     this.getAlbumById = this.getAlbumById.bind(this);
     this.checkCapture = this.checkCapture.bind(this);
-    // this.myFavoriteSongs = this.myFavoriteSongs.bind(this);
   }
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     await this.getAlbumById(id);
-    // await this.myFavoriteSongs();
   }
 
   getAlbumById = async (param) => {
@@ -40,38 +39,36 @@ class Album extends Component {
   }
 
   checkCapture = async (marked, name) => {
-    this.setState({ loading: true });
-    await (marked ? await addSong(name) : await removeSong(name)); // <===
-    // const favorite = await getFavoriteSongs();
-    this.setState({
-      loading: false,
-      // favorite,
-    });
+    await (marked ? await addSong(name) : await removeSong(name));
   }
-
-  // async myFavoriteSongs() {
-  //   const favorite = await getFavoriteSongs();
-  //   this.setState({ favorite });
-  // }
 
   render() {
     const { album, tracks, loading } = this.state;
-    const loadType = 'span';
     return (
-      <div data-testid="page-album">
+      <div>
         <Header />
-        <div hidden={ loading }>
-          <h1 data-testid="artist-name">{ `Artista: ${album.artistName}` }</h1>
-          <h2 data-testid="album-name">{ `Album: ${album.collectionName}` }</h2>
-          <img src={ album.artworkUrl100 } alt="Album-Img" />
-          { tracks.map((music) => (
-            <MusicCard
-              key={ music.trackId }
-              music={ music } // prop o objetos musica
-              callback={ this.checkCapture }
-            />))}
-        </div>
-        {loading && <Loading type={ loadType } />}
+        <main className="d-flex flex-column">
+          <div className="p-5 d-flex justify-content-center align-items-center">
+            <img width="250px" className="rounded-circle" id="album-img" src={album.artworkUrl100} alt="Album-Img" />
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item bg-transparent">{`Artist: ${album.artistName}`}</li>
+              <li className="list-group-item bg-transparent">{`Album: ${album.collectionName}`}</li>
+              <li className="list-group-item bg-transparent">{`Tracks: ${album.trackCount}`}</li>
+              <li className="list-group-item bg-transparent">{`Genre: ${album.primaryGenreName}`}</li>
+              <li className="list-group-item bg-transparent">{`Country: ${album.country}`}</li>
+            </ul>
+          </div>
+          <div className="tracks" hidden={loading}>
+            {tracks.map((music) => (
+              <MusicCard
+                key={music.trackId}
+                music={music} // prop o objetos musica
+                callback={this.checkCapture}
+              />))}
+          </div>
+
+        </main>
+        {loading && <Spinner style={{ width: '3rem', height: '3rem' }} />}
       </div>
     );
   }

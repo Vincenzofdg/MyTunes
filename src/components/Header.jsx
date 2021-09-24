@@ -26,10 +26,10 @@ class Header extends Component {
     });
   }
 
-  linkGenerator(name, id) {
+  linkGenerator(name, where) {
     return (
       <li>
-        <Link to={ `/${id}` } className="indice">
+        <Link to={ `/${where}` } className="indice-item">
           { name }
         </Link>
       </li>
@@ -37,18 +37,18 @@ class Header extends Component {
   }
 
   render() {
-    const { name, loading } = this.state;
+    const { loading } = this.state;
     return (
       <header hidden={ loading }>
-        <h2><kbd>_MyTunes_</kbd></h2>
-        <div className="container-right">
-          <p>{ `Welcome ${name}.` }</p>
-          <ul className="indice-container">
-            { this.linkGenerator('Pesquisa', 'search') }
-            { this.linkGenerator('Favoritos', 'favorites') }
-            { this.linkGenerator('Perfil', 'profile') }
-          </ul>
+        <div className="container-left">
+          <h1><kbd>_MyTunes_</kbd></h1>
         </div>
+        <ul className="container-right">
+          { this.linkGenerator('Home', 'home') }
+          { this.linkGenerator('Search', 'search') }
+          { this.linkGenerator('Favorites', 'favorites') }
+          { this.linkGenerator('My Profile', 'profile') }
+        </ul>
       </header>
     );
   }

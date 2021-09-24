@@ -17,6 +17,9 @@ const searchAlbumsAPI = async (artist) => {
       artworkUrl100,
       releaseDate,
       trackCount,
+      primaryGenreName,
+      copyright,
+      country,      
     }) => ({
       artistId,
       artistName,
@@ -26,6 +29,9 @@ const searchAlbumsAPI = async (artist) => {
       artworkUrl100,
       releaseDate,
       trackCount,
+      primaryGenreName,
+      copyright,
+      country,
     }),
   );
   return response;

@@ -1,26 +1,43 @@
 header {
-  background-color: rgb(248, 244, 244);
+  height: 8vh;
+  background-color: rgb(187, 187, 187);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
 }
 
-h2 {
+.container-left {
   margin-left: 5%;
+  height: 100%;
+  width: 15vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.container-center {
+  text-align: center;
+  font-weight: bold;
+  width: 30vw;
+}
+
 
 .container-right {
-  background-color: blue;
-  width: 20vw;
-}
-
-.indice-container {
-  background-color: aqua;
   list-style-type: none;
+  width: 30vw;
+  margin-right: 2%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
-.indice {
+.indice-item {
+  color: black;
   text-decoration: none;
+  text-align: center;
+  font-size: large;
+}
+
+.indice-item:hover {
+  font-weight: bold;
+  color: gray;
 }
