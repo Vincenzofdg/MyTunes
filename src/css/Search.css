@@ -1,0 +1,32 @@
+.container-search {
+  height: 10vh;
+  display: grid;
+  place-items: center;
+}
+
+.album-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.c-loader {
+  animation: is-rotating 1s infinite; 
+  border: 6px solid #e9dede;
+  border-radius: 50%;
+  border-top-color: rgb(131, 3, 3);
+  width: 40px;
+  height: 40px;
+}
+
+.fixed {
+  position: fixed;
+  bottom: 50%;
+  right: 50%;
+}
+  
+@keyframes is-rotating {
+  to {
+    transform: rotate(1turn);
+  }
+}
