@@ -64,7 +64,8 @@ class Login extends Component {
             </Button>
             {/* Conditionals for further renderization*/}
             { loading && <span className="c-loader" /> }
-            { nextPag && <Redirect to="/home" /> }
+            {/* { nextPag && <Redirect to="/home" /> } */}
+            { nextPag && <Redirect to="/search" /> }
           </section>
         </div>
       </div>

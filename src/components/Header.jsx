@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 // Components:
 import { getUser } from '../services/userData';
@@ -43,12 +43,15 @@ class Header extends Component {
         <div className="container-left">
           <h1><kbd>_MyTunes_</kbd></h1>
         </div>
-        <ul className="container-right">
+          <ul className="container-right">
+          { this.linkGenerator('Search', 'search') }
+          </ul> 
+        {/* <ul className="container-right">
           { this.linkGenerator('Home', 'home') }
           { this.linkGenerator('Search', 'search') }
           { this.linkGenerator('Favorites', 'favorites') }
           { this.linkGenerator('My Profile', 'profile') }
-        </ul>
+        </ul> */}
       </header>
     );
   }
